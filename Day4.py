@@ -34,10 +34,30 @@ for i in new_list:
     else:
         dicty[last_guard] += i
 
-print(dicty)
 
 largest_v = timedelta(0, 0)
 for k, v in dicty.items():
     if v > largest_v:
         largest_v = v
         print(k)
+
+# some sort of set intersection may need to be done with timespans
+# for guard 2411
+
+
+def get_guard_intervals(guard):
+    guard_intervals = []
+    last_guard = ''
+    for x in sorted(new_log_list):
+        if "Guard" in x[1]:
+            last_guard = x[1].split("#")[1].split(" ")[0]
+        else:
+            if last_guard == str(guard):
+                guard_intervals.append(x)
+
+    return guard_intervals
+
+
+intervals = get_guard_intervals(2411)
+print(intervals)
+print(sorted(new_log_list))
